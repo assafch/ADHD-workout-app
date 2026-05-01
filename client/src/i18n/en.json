@@ -1,0 +1,120 @@
+{
+  "app": {
+    "name": "ADHD Strength",
+    "loading": "Loading..."
+  },
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "ok": "OK",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "kg": "kg",
+    "lb": "lb",
+    "delete": "Delete",
+    "edit": "Edit",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "weight": "Weight",
+    "reps": "Reps"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Password",
+    "login": "Log in",
+    "logout": "Log out",
+    "invalid_credentials": "Invalid email or password"
+  },
+  "home": {
+    "greeting_morning": "Good morning",
+    "greeting_afternoon": "Good afternoon",
+    "greeting_evening": "Good evening",
+    "today_is": "Today is",
+    "rest_day": "Rest day",
+    "cardio_day": "Walk day",
+    "log_anyway": "Log a workout anyway",
+    "log_walk": "Log walk",
+    "lift_instead": "Lift instead",
+    "start_workout": "Start workout",
+    "resume_workout": "Resume workout",
+    "bad_day_button": "Just here today",
+    "bodyweight_label": "Bodyweight",
+    "log_weight": "Log",
+    "weight_placeholder": "weight in kg",
+    "saved": "Saved ✓",
+    "streak_this_week": "This week: {{done}} of {{planned}}",
+    "current_streak_days": "Streak: {{count}}",
+    "no_program": "No active program"
+  },
+  "workout": {
+    "set_of": "Set {{current}} of {{total}}",
+    "exercise_of": "Exercise {{current}} of {{total}}",
+    "last_time": "Last time",
+    "best": "Best",
+    "weight_kg": "kg",
+    "reps": "reps",
+    "set_done": "Set done",
+    "rest_remaining": "Rest",
+    "skip_rest": "Skip rest",
+    "skip_exercise": "Skip exercise",
+    "exercise_complete": "Exercise complete",
+    "next_exercise": "Next exercise",
+    "finish_session": "Finish workout",
+    "session_summary": "Session summary",
+    "total_sets": "Total sets",
+    "total_volume": "Total volume",
+    "duration": "Duration",
+    "minutes_short": "min",
+    "no_exercises": "No exercises today",
+    "suggest_starting": "Starting",
+    "suggest_increase_weight": "Weight up",
+    "suggest_increase_reps": "+1 rep"
+  },
+  "pr": {
+    "title": "New PR!",
+    "subtitle": "New 1RM: {{weight}} kg"
+  },
+  "bad_day": {
+    "title": "Bad day mode",
+    "prompt": "What's the smallest thing you'll do?",
+    "option_squats": "1 set of squats",
+    "option_pushups": "1 set of push-ups",
+    "option_other": "Pick another exercise",
+    "done_message": "That counts. Streak preserved. ✓"
+  },
+  "history": {
+    "title": "History",
+    "no_sessions": "No sessions yet. Go get one.",
+    "view": "Details"
+  },
+  "exercise": {
+    "history_title": "{{name}} progress",
+    "one_rm_trend": "1RM trend",
+    "no_data": "No data yet"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "lang_he": "Hebrew",
+    "lang_en": "English",
+    "units": "Units",
+    "rack": "My dumbbells",
+    "rack_help": "The weights you own, in kg. Suggestions snap to these values.",
+    "add_weight": "Add weight",
+    "profile": "Profile",
+    "name": "Name",
+    "height_cm": "Height (cm)",
+    "dob": "Date of birth",
+    "program": "Program",
+    "phase": "Phase",
+    "phase_1": "Weeks 1-2 (soft start)",
+    "phase_2": "Week 3+ (full program)",
+    "advance_phase": "Advance to next phase",
+    "logout": "Log out"
+  },
+  "offline": {
+    "indicator": "Offline • {{count}} pending sync",
+    "synced": "Synced"
+  }
+}

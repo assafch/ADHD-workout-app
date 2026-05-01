@@ -1,0 +1,120 @@
+{
+  "app": {
+    "name": "כוח ADHD",
+    "loading": "טוען..."
+  },
+  "common": {
+    "cancel": "ביטול",
+    "save": "שמור",
+    "ok": "אישור",
+    "back": "חזרה",
+    "next": "הבא",
+    "done": "סיים",
+    "kg": "ק\"ג",
+    "lb": "ליברה",
+    "delete": "מחק",
+    "edit": "ערוך",
+    "today": "היום",
+    "yesterday": "אתמול",
+    "weight": "משקל",
+    "reps": "חזרות"
+  },
+  "auth": {
+    "email": "אימייל",
+    "password": "סיסמה",
+    "login": "כניסה",
+    "logout": "התנתק",
+    "invalid_credentials": "אימייל או סיסמה שגויים"
+  },
+  "home": {
+    "greeting_morning": "בוקר טוב",
+    "greeting_afternoon": "צהריים טובים",
+    "greeting_evening": "ערב טוב",
+    "today_is": "היום זה",
+    "rest_day": "יום מנוחה",
+    "cardio_day": "יום הליכה",
+    "log_anyway": "רשום אימון בכל זאת",
+    "log_walk": "רשום הליכה",
+    "lift_instead": "אימון במקום",
+    "start_workout": "התחל אימון",
+    "resume_workout": "חזור לאימון",
+    "bad_day_button": "אני בקושי כאן היום",
+    "bodyweight_label": "משקל גוף",
+    "log_weight": "רשום",
+    "weight_placeholder": "משקל בק\"ג",
+    "saved": "נשמר ✓",
+    "streak_this_week": "השבוע: {{done}} מתוך {{planned}}",
+    "current_streak_days": "רצף: {{count}}",
+    "no_program": "אין תוכנית פעילה"
+  },
+  "workout": {
+    "set_of": "סט {{current}} מתוך {{total}}",
+    "exercise_of": "תרגיל {{current}} מתוך {{total}}",
+    "last_time": "פעם קודמת",
+    "best": "שיא",
+    "weight_kg": "ק\"ג",
+    "reps": "חזרות",
+    "set_done": "סט הושלם",
+    "rest_remaining": "מנוחה",
+    "skip_rest": "דלג על מנוחה",
+    "skip_exercise": "דלג על תרגיל",
+    "exercise_complete": "תרגיל הושלם",
+    "next_exercise": "תרגיל הבא",
+    "finish_session": "סיים אימון",
+    "session_summary": "סיכום אימון",
+    "total_sets": "סה\"כ סטים",
+    "total_volume": "נפח כולל",
+    "duration": "משך",
+    "minutes_short": "דק׳",
+    "no_exercises": "אין תרגילים היום",
+    "suggest_starting": "התחלה",
+    "suggest_increase_weight": "העלאת משקל",
+    "suggest_increase_reps": "+1 חזרה"
+  },
+  "pr": {
+    "title": "שיא חדש!",
+    "subtitle": "1RM חדש: {{weight}} ק\"ג"
+  },
+  "bad_day": {
+    "title": "מצב יום קשה",
+    "prompt": "מה הדבר הקטן ביותר שתעשה היום?",
+    "option_squats": "סט אחד של סקוואט",
+    "option_pushups": "סט אחד של שכיבות סמיכה",
+    "option_other": "תרגיל אחר",
+    "done_message": "זה נחשב. הרצף נשמר. ✓"
+  },
+  "history": {
+    "title": "היסטוריה",
+    "no_sessions": "אין עדיין אימונים. צא לזה!",
+    "view": "פרטים"
+  },
+  "exercise": {
+    "history_title": "התקדמות {{name}}",
+    "one_rm_trend": "מגמת 1RM",
+    "no_data": "אין עדיין נתונים"
+  },
+  "settings": {
+    "title": "הגדרות",
+    "language": "שפה",
+    "lang_he": "עברית",
+    "lang_en": "אנגלית",
+    "units": "יחידות מידה",
+    "rack": "המשקולות שלי",
+    "rack_help": "המשקולות שיש לך, בק\"ג. ההצעות יעוגלו לערכים הללו.",
+    "add_weight": "הוסף משקל",
+    "profile": "פרופיל",
+    "name": "שם",
+    "height_cm": "גובה (ס\"מ)",
+    "dob": "תאריך לידה",
+    "program": "תוכנית",
+    "phase": "שלב",
+    "phase_1": "שבועות 1-2 (התחלה רכה)",
+    "phase_2": "שבוע 3+ (תוכנית מלאה)",
+    "advance_phase": "התקדם לשלב הבא",
+    "logout": "התנתק"
+  },
+  "offline": {
+    "indicator": "במצב לא מקוון • {{count}} ממתינים לסנכרון",
+    "synced": "סונכרן"
+  }
+}
