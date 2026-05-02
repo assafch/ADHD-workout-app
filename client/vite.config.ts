@@ -12,8 +12,8 @@ export default defineConfig({
         name: "ADHD Strength",
         short_name: "Strength",
         description: "ADHD-friendly strength training tracker",
-        theme_color: "#10b981",
-        background_color: "#0c0a09",
+        theme_color: "#1c1b1a",
+        background_color: "#1c1b1a",
         display: "standalone",
         orientation: "portrait",
         start_url: "/",
@@ -27,6 +27,11 @@ export default defineConfig({
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webmanifest}"],
         navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/api/],
+        // Without these the new SW waits for every tab to close before activating —
+        // which means a new build never shows up while the app is open.
+        skipWaiting: true,
+        clientsClaim: true,
+        cleanupOutdatedCaches: true,
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.startsWith("/api/") && url.pathname !== "/api/auth/login",

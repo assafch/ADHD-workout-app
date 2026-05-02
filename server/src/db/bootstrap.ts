@@ -109,6 +109,25 @@ CREATE INDEX IF NOT EXISTS set_logs_session_idx ON set_logs (session_id);
 CREATE INDEX IF NOT EXISTS set_logs_exercise_idx ON set_logs (exercise_id);
 CREATE INDEX IF NOT EXISTS sessions_client_id_idx ON sessions (client_id);
 CREATE INDEX IF NOT EXISTS set_logs_client_id_idx ON set_logs (client_id);
+
+ALTER TABLE sessions ADD COLUMN IF NOT EXISTS is_extra BOOLEAN NOT NULL DEFAULT FALSE;
+ALTER TABLE sessions ADD COLUMN IF NOT EXISTS source VARCHAR(20) NOT NULL DEFAULT 'scheduled';
+
+CREATE TABLE IF NOT EXISTS session_exercises (
+  id SERIAL PRIMARY KEY,
+  session_id INTEGER NOT NULL REFERENCES sessions(id) ON DELETE CASCADE,
+  exercise_id INTEGER NOT NULL REFERENCES exercises(id),
+  order_index INTEGER NOT NULL,
+  target_sets INTEGER NOT NULL,
+  target_reps_min INTEGER NOT NULL,
+  target_reps_max INTEGER NOT NULL,
+  rest_seconds INTEGER NOT NULL,
+  start_weight_kg REAL,
+  source VARCHAR(20) NOT NULL DEFAULT 'user_added',
+  notes_en TEXT,
+  notes_he TEXT
+);
+CREATE INDEX IF NOT EXISTS session_exercises_session_idx ON session_exercises (session_id);
 `;
 
 export async function bootstrapSchema() {

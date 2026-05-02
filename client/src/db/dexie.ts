@@ -21,6 +21,7 @@ export interface PendingSession {
   serverId: number | null;
   programDayId: number | null;
   isBadDay: boolean;
+  isExtra?: boolean;
   startedAt: string;
   completedAt: string | null;
   status: "in_progress" | "completed" | "abandoned";

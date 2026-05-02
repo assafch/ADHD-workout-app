@@ -99,6 +99,9 @@ export function Home() {
         <div>
           <p className="text-sm text-stone-400">{greeting}{user?.name ? ` · ${user.name}` : ""}</p>
           <h1 className="text-2xl font-bold">{dayName}</h1>
+          <Link to="/adjust" className="mt-1 inline-block text-xs text-emerald-400 underline-offset-4 hover:underline">
+            {t("adjust.open")}
+          </Link>
         </div>
         <Link to="/settings" aria-label="settings" className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-900 text-stone-300 active:bg-stone-800">
           ⚙️
@@ -162,7 +165,7 @@ export function Home() {
         {today.exercises.length > 0 && (
           <ul className="rounded-2xl bg-stone-900 p-3 text-sm text-stone-300">
             {today.exercises.map((ex) => (
-              <li key={ex.programExerciseId} className="flex items-center justify-between border-b border-stone-800 py-2 last:border-0">
+              <li key={`${ex.programExerciseId ?? "se"}-${ex.exercise.id}`} className="flex items-center justify-between border-b border-stone-800 py-2 last:border-0">
                 <span>{isHe ? ex.exercise.nameHe : ex.exercise.nameEn}</span>
                 <span className="ltr-numbers text-xs text-stone-500">
                   {ex.targetSets}×{ex.targetRepsMin}-{ex.targetRepsMax} @ {ex.suggestion.weightKg}kg
@@ -187,9 +190,14 @@ function RestCard({ onLogAnyway }: { onLogAnyway: () => void }) {
     <div className="rounded-3xl bg-stone-900 p-6 text-center">
       <div className="text-3xl">🛏️</div>
       <h2 className="mt-2 text-2xl font-bold">{t("home.rest_day")}</h2>
-      <button type="button" onClick={onLogAnyway} className="mt-4 text-sm text-stone-400 underline">
-        {t("home.log_anyway")}
-      </button>
+      <div className="mt-4 flex flex-col items-center gap-2">
+        <Link to="/adjust" className="min-h-tap rounded-xl bg-emerald-500 px-4 py-2 font-semibold text-stone-950">
+          {t("adjust.extra_workout")}
+        </Link>
+        <button type="button" onClick={onLogAnyway} className="text-sm text-stone-400 underline">
+          {t("home.log_anyway")}
+        </button>
+      </div>
     </div>
   );
 }

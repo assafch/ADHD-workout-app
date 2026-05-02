@@ -69,11 +69,46 @@
     "no_exercises": "No exercises today",
     "suggest_starting": "Starting",
     "suggest_increase_weight": "Weight up",
-    "suggest_increase_reps": "+1 rep"
+    "suggest_increase_reps": "+1 rep",
+    "add_set": "+ Add set",
+    "add_set_short": "Another set",
+    "add_exercise": "+ Add exercise",
+    "add_exercise_short": "Exercise",
+    "add_exercise_title": "Add an exercise",
+    "no_suggestions": "No suggestions available.",
+    "state_lift": "Lift",
+    "state_rest": "Rest",
+    "state_move": "Move",
+    "set_progress": "{{current}}/{{total}} · ex {{exCurrent}}/{{exTotal}}",
+    "next_label": "next: {{weight}} × {{reps}}",
+    "kg_unit": "kg",
+    "skip": "Skip",
+    "next": "Next",
+    "set_done_short": "Set done",
+    "breathe": "Breathe",
+    "breath_cue": "inhale … exhale"
+  },
+  "coach": {
+    "tip": "Coach tip",
+    "tip_reps_close": "Slow on the way down. One more rep is in there.",
+    "tip_weight_close": "PR breaks at +0.25kg. Take a breath before the set.",
+    "tip_form_general": "Elbow at 45°. If not — skip and add a set.",
+    "tip_pr_next_session": "Clean. Next time try {{weight}}kg × {{reps}}. Give your body an extra day before the next push."
   },
   "pr": {
     "title": "New PR!",
-    "subtitle": "New 1RM: {{weight}} kg"
+    "subtitle": "New 1RM: {{weight}} kg",
+    "chase": "Chasing PR",
+    "record": "Your record",
+    "today": "Today",
+    "past_pr": "Past PR",
+    "days_ago": "{{days}}d ago",
+    "one_more_rep_breaks": "One more rep breaks it",
+    "one_rm": "1RM",
+    "crush_it": "Crush it",
+    "break_pr": "Break PR",
+    "delta_vs_past": "+{{delta}}{{unit}} vs past PR",
+    "continue": "Continue"
   },
   "bad_day": {
     "title": "Bad day mode",
@@ -112,6 +147,20 @@
     "phase_2": "Week 3+ (full program)",
     "advance_phase": "Advance to next phase",
     "logout": "Log out"
+  },
+  "adjust": {
+    "title": "Adjust workout",
+    "open": "Adjust",
+    "rotate_help": "Pick which day to do today. The rest of the week shifts to follow.",
+    "do_today": "Do today",
+    "extra_workout": "Extra (no shift)",
+    "extra_help": "Train an extra day without changing your weekly plan."
+  },
+  "advisor": {
+    "title": "Ask the AI advisor",
+    "help": "Tell me what's off — sore shoulders, low energy, no heavy weights — and I'll suggest adjustments.",
+    "placeholder": "e.g. shoulders are sore, can we skip pressing today?",
+    "ask": "Get suggestions"
   },
   "offline": {
     "indicator": "Offline • {{count}} pending sync",

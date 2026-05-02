@@ -5,35 +5,80 @@
 :root {
   color-scheme: dark;
   -webkit-tap-highlight-color: transparent;
+
+  --ink: #0d0d0e;
+  --bg: #1c1b1a;
+  --surface: #252220;
+  --surface-2: #2a2724;
+  --line: #3a3633;
+  --text: #f5f1ea;
+  --text-2: #c9c2b6;
+  --text-mute: #8a8378;
+  --text-dim: #5a5550;
+  --accent: #d97047;
+  --accent-2: #a8421f;
+  --accent-glow: rgba(217, 112, 71, 0.2);
+  --warn: #d9aa47;
+  --ai: #7a6cd9;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
 }
 
 body {
-  font-family: theme("fontFamily.sans");
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Heebo", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overscroll-behavior: contain;
 }
 
-button, a {
+button,
+a {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
 
+/* Numerals always read LTR even inside an RTL paragraph. */
+.ltr-numbers {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
 [dir="rtl"] .ltr-numbers {
   direction: ltr;
-  unicode-bidi: embed;
+  unicode-bidi: isolate;
   display: inline-block;
 }
 
-@keyframes confetti-fall {
-  0% { transform: translateY(-30vh) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+.font-num {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
 }
 
+/* Eyebrow caps — uppercase + tracked */
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+/* Confetti remnant — kept for legacy bad-day flow */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-30vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
 .confetti-piece {
   position: absolute;
   width: 10px;
@@ -43,17 +88,90 @@ button, a {
   will-change: transform, opacity;
 }
 
-@keyframes pulse-emerald {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
-  50% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+/* Coral halo on primary CTA — concentric, no blur. */
+@keyframes pulse-coral {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(217, 112, 71, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(217, 112, 71, 0);
+  }
 }
-.pulse-emerald { animation: pulse-emerald 2s infinite; }
+.pulse-coral {
+  animation: pulse-coral 2s infinite;
+}
+
+/* Legacy: kept while Home/etc. are still on the old palette. */
+@keyframes pulse-emerald {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(16, 185, 129, 0);
+  }
+}
+.pulse-emerald {
+  animation: pulse-emerald 2s infinite;
+}
+
+/* Breathing circle for the rest timer. Single keyframe, mirrored ring + halo. */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 14px rgba(217, 112, 71, 0.1),
+      0 0 0 32px rgba(217, 112, 71, 0.04);
+  }
+  50% {
+    transform: scale(1.06);
+    box-shadow:
+      0 0 0 22px rgba(217, 112, 71, 0.05),
+      0 0 0 44px rgba(217, 112, 71, 0.02);
+  }
+}
+.breathe {
+  animation: breathe 5s ease-in-out infinite;
+}
+
+/* Last-15s timer pulse */
+@keyframes timer-tick {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+.timer-tick {
+  animation: timer-tick 1s ease-in-out infinite;
+}
+
+/* PR celebration handwritten title — slight rotation, mirrored in RTL. */
+.pr-handwritten {
+  font-family: "Caveat", "Heebo", cursive;
+  font-weight: 700;
+  transform: rotate(-3deg);
+  display: inline-block;
+}
+[dir="rtl"] .pr-handwritten {
+  transform: rotate(3deg);
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .confetti-piece, .pulse-emerald {
+  .confetti-piece,
+  .pulse-coral,
+  .pulse-emerald,
+  .breathe,
+  .timer-tick {
     animation: none !important;
   }
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
@@ -64,4 +182,6 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type="number"] { -moz-appearance: textfield; }
+input[type="number"] {
+  -moz-appearance: textfield;
+}

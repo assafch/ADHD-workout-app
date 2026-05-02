@@ -77,6 +77,23 @@ export const sessions = pgTable("sessions", {
   isBadDay: boolean("is_bad_day").notNull().default(false),
   status: varchar("status", { length: 20 }).notNull().default("in_progress"),
   clientId: varchar("client_id", { length: 64 }),
+  isExtra: boolean("is_extra").notNull().default(false),
+  source: varchar("source", { length: 20 }).notNull().default("scheduled"),
+});
+
+export const sessionExercises = pgTable("session_exercises", {
+  id: serial("id").primaryKey(),
+  sessionId: integer("session_id").notNull().references(() => sessions.id, { onDelete: "cascade" }),
+  exerciseId: integer("exercise_id").notNull().references(() => exercises.id),
+  orderIndex: integer("order_index").notNull(),
+  targetSets: integer("target_sets").notNull(),
+  targetRepsMin: integer("target_reps_min").notNull(),
+  targetRepsMax: integer("target_reps_max").notNull(),
+  restSeconds: integer("rest_seconds").notNull(),
+  startWeightKg: real("start_weight_kg"),
+  source: varchar("source", { length: 20 }).notNull().default("user_added"),
+  notesEn: text("notes_en"),
+  notesHe: text("notes_he"),
 });
 
 export const setLogs = pgTable("set_logs", {
@@ -110,5 +127,6 @@ export type ProgramRow = typeof programs.$inferSelect;
 export type ProgramDayRow = typeof programDays.$inferSelect;
 export type ProgramExerciseRow = typeof programExercises.$inferSelect;
 export type SessionRow = typeof sessions.$inferSelect;
+export type SessionExerciseRow = typeof sessionExercises.$inferSelect;
 export type SetLogRow = typeof setLogs.$inferSelect;
 export type BodyMetricRow = typeof bodyMetrics.$inferSelect;

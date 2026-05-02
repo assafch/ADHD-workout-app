@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<title>ADHD Strength · Wireframes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    font-family: 'Heebo', system-ui, sans-serif;
+    background: #f4ede2;
+  }
+  /* sketchy paper texture for canvas bg */
+  .paper-bg {
+    background-color: #f4ede2;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(168,66,31,0.04), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(28,27,26,0.03), transparent 50%);
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body class="paper-bg">
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="phone-frame.jsx"></script>
+<script type="text/babel" src="home-variations.jsx"></script>
+<script type="text/babel" src="workout-variations.jsx"></script>
+<script type="text/babel" src="extras-variations.jsx"></script>
+<script type="text/babel" src="pr-variations.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "lang": "he",
+  "showAnnotations": true
+}/*EDITMODE-END*/;
+
+function App() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const lang = tweaks.lang;
+
+  return (
+    <>
+      <DesignCanvas
+        title={lang === "he" ? "ADHD Strength · ווייפריימים" : "ADHD Strength · Wireframes"}
+        subtitle={lang === "he"
+          ? "כיוונים נמוכי-נאמנות · עברית RTL · אקצנט אלמוגי על שחור · 'החלטה אחת לכל מסך'"
+          : "Lo-fi explorations · RTL Hebrew first · coral accent on near-black · 'one decision per screen'"}
+      >
+        {/* SECTION: Manifesto / system */}
+        <DCSection id="manifesto" title={lang === "he" ? "00 · המערכת" : "00 · The system"}>
+          <DCArtboard id="m1" label={lang === "he" ? "עקרונות" : "Principles"} width={780} height={520}>
+            <div style={{ padding: 36, height: "100%", boxSizing: "border-box", direction: lang === "he" ? "rtl" : "ltr", textAlign: lang === "he" ? "right" : "left" }}>
+              <div style={{ fontFamily: "'Caveat', cursive", fontSize: 26, color: "#a8421f" }}>
+                {lang === "he" ? "מנואל הזעיר" : "The tiny manual"}
+              </div>
+              <div style={{ fontSize: 36, fontWeight: 900, color: "#1c1b1a", marginTop: 6, lineHeight: 1.1 }}>
+                {lang === "he"
+                  ? "אחד על המסך. הכל אחד-נגיעה. דופמין על כל סט."
+                  : "One thing on screen. Everything one-tap. Dopamine per set."}
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18, marginTop: 28 }}>
+                {[
+                  ["01", lang === "he" ? "החלטה אחת" : "One decision", lang === "he" ? "אם המסך מציג שתי בחירות שוות-משקל — חזור ופצל." : "If the screen shows two equal-weight choices — split it."],
+                  ["02", lang === "he" ? "תופעה > ביצוע" : "Showing up > performance", lang === "he" ? "סטריק על נוכחות. PR זה בונוס." : "Streak rewards presence. PR is a bonus."],
+                  ["03", lang === "he" ? "מספרים גדולים" : "Big numerals", lang === "he" ? "טיפו-מונו על כל מספר. נקרא תוך כדי הרמה." : "Mono on every digit. Readable mid-lift."],
+                  ["04", lang === "he" ? "סולח מראש" : "Forgiving by default", lang === "he" ? "סט נוסף, יום קשה, דלג — נגיעה אחת." : "Extra set, bad day, skip — one tap each."],
+                ].map(([n, h, p]) => (
+                  <div key={n} style={{ borderTop: "2px solid #1c1b1a", paddingTop: 10 }}>
+                    <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "#a8421f" }}>{n}</div>
+                    <div style={{ fontSize: 17, fontWeight: 800, color: "#1c1b1a", marginTop: 4 }}>{h}</div>
+                    <div style={{ fontSize: 13, color: "#5a5550", marginTop: 4, lineHeight: 1.4 }}>{p}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </DCArtboard>
+
+          <DCArtboard id="m2" label={lang === "he" ? "צבע + טיפו" : "Color + type"} width={520} height={520}>
+            <div style={{ padding: 32, height: "100%", boxSizing: "border-box", direction: lang === "he" ? "rtl" : "ltr", textAlign: lang === "he" ? "right" : "left" }}>
+              <div style={{ fontFamily: "'Caveat', cursive", fontSize: 24, color: "#1c1b1a" }}>
+                {lang === "he" ? "פלטה" : "Palette"}
+              </div>
+              <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+                {[
+                  ["#0d0d0e", "ink"],
+                  ["#1c1b1a", "bg"],
+                  ["#252220", "surf"],
+                  ["#3a3633", "line"],
+                  ["#c9c2b6", "text"],
+                  ["#d97047", "coral"],
+                  ["#a8421f", "deep"],
+                  ["#d9aa47", "warn"],
+                ].map(([c, n]) => (
+                  <div key={c} style={{ flex: 1 }}>
+                    <div style={{ height: 56, background: c, borderRadius: 8, border: "1px solid #1c1b1a" }} />
+                    <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", marginTop: 4, color: "#5a5550", textAlign: "center" }}>{n}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ fontFamily: "'Caveat', cursive", fontSize: 24, color: "#1c1b1a", marginTop: 28 }}>
+                {lang === "he" ? "טיפו" : "Type"}
+              </div>
+              <div style={{ marginTop: 8, color: "#1c1b1a" }}>
+                <div style={{ fontFamily: "'Heebo'", fontSize: 38, fontWeight: 900, lineHeight: 1, letterSpacing: lang === "he" ? -0.5 : -1.5 }}>
+                  {lang === "he" ? "דחיפה · Push 12.5" : "Push · דחיפה"}
+                </div>
+                <div style={{ fontSize: 11, fontFamily: "'JetBrains Mono', monospace", color: "#5a5550", marginTop: 4 }}>Heebo 900 · -1.5</div>
+                <div style={{ fontFamily: "'Heebo'", fontSize: 18, color: "#1c1b1a", marginTop: 14 }}>
+                  {lang === "he" ? "טקסט גוף ומשני" : "Body & meta text"}
+                </div>
+                <div style={{ fontSize: 11, fontFamily: "'JetBrains Mono', monospace", color: "#5a5550", marginTop: 4 }}>Heebo 400/600</div>
+                <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 22, fontWeight: 700, color: "#1c1b1a", marginTop: 14 }}>
+                  12.5 kg · 3×8 · 1:24
+                </div>
+                <div style={{ fontSize: 11, fontFamily: "'JetBrains Mono', monospace", color: "#5a5550", marginTop: 4 }}>JetBrains Mono — all numerals</div>
+              </div>
+            </div>
+          </DCArtboard>
+
+          <DCArtboard id="m3" label={lang === "he" ? "אייקונוגרפיה" : "Iconography"} width={520} height={520}>
+            <div style={{ padding: 32, height: "100%", boxSizing: "border-box", direction: lang === "he" ? "rtl" : "ltr", textAlign: lang === "he" ? "right" : "left" }}>
+              <div style={{ fontFamily: "'Caveat', cursive", fontSize: 24, color: "#1c1b1a" }}>
+                {lang === "he" ? "גליפים גיאומטריים" : "Geometric glyphs"}
+              </div>
+              <div style={{ fontSize: 13, color: "#5a5550", marginTop: 4 }}>
+                {lang === "he"
+                  ? "החלפה לאימוג'י — ריבועים, מעגלים, משולשים. אותו עובי, אותה קנה-מידה."
+                  : "Replacing emoji. Squares, circles, triangles. Same weight, same scale."}
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, marginTop: 24 }}>
+                {[
+                  ["▮", lang === "he" ? "אימון" : "workout"],
+                  ["○", lang === "he" ? "מנוחה" : "rest"],
+                  ["△", lang === "he" ? "PR" : "PR"],
+                  ["▦", lang === "he" ? "היסטוריה" : "history"],
+                  ["⌂", lang === "he" ? "בית" : "home"],
+                  ["⚙", lang === "he" ? "הגדרות" : "settings"],
+                  ["◐", lang === "he" ? "אופליין" : "offline"],
+                  ["▲", lang === "he" ? "סטריק" : "streak"],
+                ].map(([g, n]) => (
+                  <div key={n} style={{
+                    aspectRatio: 1,
+                    background: "#1c1b1a",
+                    color: "#f5f1ea",
+                    borderRadius: 14,
+                    display: "flex", flexDirection: "column",
+                    alignItems: "center", justifyContent: "center",
+                    gap: 4,
+                  }}>
+                    <div style={{ fontSize: 22, fontFamily: "'JetBrains Mono', monospace" }}>{g}</div>
+                    <div style={{ fontSize: 9, color: "#8a8378", fontFamily: "'JetBrains Mono', monospace" }}>{n}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ fontFamily: "'Caveat', cursive", fontSize: 16, color: "#a8421f", marginTop: 18 }}>
+                {lang === "he" ? "↑ יחליף את 🛏️ 🚶 ⚙️ 🏆" : "↑ replaces 🛏️ 🚶 ⚙️ 🏆"}
+              </div>
+            </div>
+          </DCArtboard>
+        </DCSection>
+
+        {/* SECTION: Home */}
+        <DCSection id="home" title={lang === "he" ? "01 · בית · 3 כיוונים" : "01 · Home · 3 directions"}>
+          <DCArtboard id="ha" label="A · day-name" width={420} height={840}>
+            <HomeA lang={lang} />
+          </DCArtboard>
+          <DCArtboard id="hb" label="B · streak hero" width={420} height={840}>
+            <HomeB lang={lang} />
+          </DCArtboard>
+          <DCArtboard id="hc" label="C · one card" width={420} height={840}>
+            <HomeC lang={lang} />
+          </DCArtboard>
+        </DCSection>
+
+        {/* SECTION: Workout state systems */}
+        <DCSection id="workout" title={lang === "he" ? "02 · אימון · 3 מערכות מצב" : "02 · Workout · 3 state systems"}>
+          {/* Sys 1 — three states stacked */}
+          <DCArtboard id="w1a" label="Sys1 · active" width={420} height={840}>
+            <WorkoutSys1 lang={lang} state="active" />
+          </DCArtboard>
+          <DCArtboard id="w1b" label="Sys1 · resting" width={420} height={840}>
+            <WorkoutSys1 lang={lang} state="rest" />
+          </DCArtboard>
+          <DCArtboard id="w1c" label="Sys1 · between" width={420} height={840}>
+            <WorkoutSys1 lang={lang} state="between" />
+          </DCArtboard>
+
+          <DCArtboard id="w2a" label="Sys2 · active" width={420} height={840}>
+            <WorkoutSys2 lang={lang} state="active" />
+          </DCArtboard>
+          <DCArtboard id="w2b" label="Sys2 · resting" width={420} height={840}>
+            <WorkoutSys2 lang={lang} state="rest" />
+          </DCArtboard>
+          <DCArtboard id="w2c" label="Sys2 · between" width={420} height={840}>
+            <WorkoutSys2 lang={lang} state="between" />
+          </DCArtboard>
+
+          <DCArtboard id="w3a" label="Sys3 · active" width={420} height={840}>
+            <WorkoutSys3 lang={lang} state="active" />
+          </DCArtboard>
+          <DCArtboard id="w3b" label="Sys3 · resting" width={420} height={840}>
+            <WorkoutSys3 lang={lang} state="rest" />
+          </DCArtboard>
+          <DCArtboard id="w3c" label="Sys3 · between" width={420} height={840}>
+            <WorkoutSys3 lang={lang} state="between" />
+          </DCArtboard>
+        </DCSection>
+
+        {/* SECTION: PR-breaking */}
+        <DCSection id="pr" title={lang === "he" ? "02b · שובר שיאים · 1RM + AI מאמן" : "02b · Breaking PRs · 1RM + AI coach"}>
+          <DCArtboard id="pr-a" label="A · target bar" width={420} height={840}>
+            <WorkoutPR_A lang={lang} />
+          </DCArtboard>
+          <DCArtboard id="pr-b" label="B · ghost duel" width={420} height={840}>
+            <WorkoutPR_B lang={lang} />
+          </DCArtboard>
+          <DCArtboard id="pr-c" label="C · pick path" width={420} height={840}>
+            <WorkoutPR_C lang={lang} />
+          </DCArtboard>
+          <DCArtboard id="pr-celeb" label={lang === "he" ? "חגיגת שיא" : "PR celebration"} width={420} height={840}>
+            <PRCelebration lang={lang} />
+          </DCArtboard>
+        </DCSection>
+
+        {/* SECTION: Patterns */}
+        <DCSection id="patterns" title={lang === "he" ? "03 · דפוסים · יום קשה, מנוחה, סטריק, מצבי קצה" : "03 · Patterns · bad day, rest, streak, edge"}>
+          <DCArtboard id="p1" label={lang === "he" ? "יום קשה" : "Bad day"} width={420} height={840}>
+            <BadDay lang={lang} />
+          </DCArtboard>
+          <DCArtboard id="p2" label={lang === "he" ? "טיימר מנוחה" : "Rest sheet"} width={420} height={840}>
+            <RestSheet lang={lang} />
+          </DCArtboard>
+          <DCArtboard id="p3" label={lang === "he" ? "מערכת סטריק" : "Streak system"} width={460} height={920}>
+            <StreakSystem lang={lang} />
+          </DCArtboard>
+          <DCArtboard id="p4" label={lang === "he" ? "מצבי קצה" : "Edge states"} width={780} height={580}>
+            <div style={{ padding: 28, height: "100%", boxSizing: "border-box" }}>
+              <EdgeStates lang={lang} />
+            </div>
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+
+      <TweaksPanel title={lang === "he" ? "כוונונים" : "Tweaks"}>
+        <TweakSection title={lang === "he" ? "שפה" : "Language"}>
+          <TweakRadio
+            value={tweaks.lang}
+            onChange={(v) => setTweak("lang", v)}
+            options={[
+              { value: "he", label: "עברית" },
+              { value: "en", label: "English" },
+            ]}
+          />
+        </TweakSection>
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

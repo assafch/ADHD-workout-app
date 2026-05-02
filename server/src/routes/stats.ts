@@ -17,7 +17,8 @@ statsRouter.get("/streak", requireAuth, async (req: AuthedRequest, res) => {
     : (await db.select().from(programs).where(and(eq(programs.userId, userId), eq(programs.isActive, true))).limit(1))[0];
 
   const allUserSessions = await db.select().from(sessions).where(eq(sessions.userId, userId));
-  const totalSessions = allUserSessions.filter((s) => s.status === "completed").length;
+  const scheduledSessions = allUserSessions.filter((s) => !s.isExtra);
+  const totalSessions = scheduledSessions.filter((s) => s.status === "completed").length;
 
   if (!program) {
     return res.json({
@@ -34,8 +35,8 @@ statsRouter.get("/streak", requireAuth, async (req: AuthedRequest, res) => {
     .filter((d) => d.phase === program.phase)
     .map((d) => ({ dayOfWeek: d.dayOfWeek, isRestDay: d.isRestDay, isCardioDay: d.isCardioDay }));
   const today = new Date();
-  const { currentStreakDays, longestStreakDays } = computeStreak(allUserSessions, phaseDays, today);
-  const { weekDaysDone, weekDaysPlanned } = weekProgress(allUserSessions, phaseDays, today);
+  const { currentStreakDays, longestStreakDays } = computeStreak(scheduledSessions, phaseDays, today);
+  const { weekDaysDone, weekDaysPlanned } = weekProgress(scheduledSessions, phaseDays, today);
 
   return res.json({
     weekDaysDone,

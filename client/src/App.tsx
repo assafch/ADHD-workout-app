@@ -8,6 +8,7 @@ import { SessionDetail } from "./pages/SessionDetail";
 import { ExerciseDetail } from "./pages/ExerciseDetail";
 import { Settings } from "./pages/Settings";
 import { BadDay } from "./pages/BadDay";
+import { AdjustWorkout } from "./pages/AdjustWorkout";
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { user, isLoading } = useAuth();
@@ -76,6 +77,14 @@ export function App() {
           element={
             <ProtectedRoute>
               <BadDay />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/adjust"
+          element={
+            <ProtectedRoute>
+              <AdjustWorkout />
             </ProtectedRoute>
           }
         />

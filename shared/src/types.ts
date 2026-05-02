@@ -81,6 +81,8 @@ export interface Session {
   isBadDay: boolean;
   status: "in_progress" | "completed" | "abandoned";
   clientId: string | null;
+  isExtra: boolean;
+  source: "scheduled" | "rotated" | "extra" | "ai_adjusted";
 }
 
 export interface BodyMetric {
@@ -98,7 +100,8 @@ export interface TodayExerciseSuggestion {
 }
 
 export interface TodayExercise {
-  programExerciseId: number;
+  programExerciseId: number | null;
+  sessionExerciseId?: number | null;
   exercise: Pick<Exercise, "id" | "slug" | "nameEn" | "nameHe" | "primaryMuscles" | "isUnilateral">;
   targetSets: number;
   targetRepsMin: number;

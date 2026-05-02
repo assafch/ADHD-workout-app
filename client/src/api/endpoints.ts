@@ -14,13 +14,27 @@ export const today = {
 };
 
 export const sessions = {
-  create: (body: { programDayId?: number; isBadDay?: boolean; clientId: string }) =>
+  create: (body: { programDayId?: number; isBadDay?: boolean; isExtra?: boolean; source?: "scheduled" | "rotated" | "extra" | "ai_adjusted"; clientId: string }) =>
     api<{ session: Session }>("/api/sessions", { method: "POST", body }),
   patch: (id: number, body: Partial<Pick<Session, "rpe" | "notes" | "status" | "completedAt">>) =>
     api<{ session: Session }>(`/api/sessions/${id}`, { method: "PATCH", body }),
   complete: (id: number) => api<{ session: Session }>(`/api/sessions/${id}/complete`, { method: "POST", body: {} }),
   list: (limit = 20) => api<{ sessions: Session[] }>(`/api/sessions?limit=${limit}`),
   detail: (id: number) => api<{ session: Session; sets: SetLog[] }>(`/api/sessions/${id}`),
+  addExercise: (
+    sessionId: number,
+    body: {
+      exerciseId: number;
+      targetSets?: number;
+      targetRepsMin?: number;
+      targetRepsMax?: number;
+      restSeconds?: number;
+      startWeightKg?: number;
+      source?: "user_added" | "ai_suggested";
+    },
+  ) => api<{ sessionExercise: { id: number }; exercise: Exercise }>(`/api/sessions/${sessionId}/exercises`, { method: "POST", body }),
+  exerciseSuggestions: (sessionId: number, limit = 5) =>
+    api<{ suggestions: { exercise: Exercise; reason: string }[] }>(`/api/sessions/${sessionId}/exercise-suggestions?limit=${limit}`),
 };
 
 export const sets = {
@@ -63,6 +77,24 @@ export const programs = {
   }>("/api/programs/active"),
   patch: (id: number, body: { phase?: number; nameEn?: string; nameHe?: string }) =>
     api<{ program: { id: number; phase: number } }>(`/api/programs/${id}`, { method: "PATCH", body }),
+  rotate: (programDayId: number) =>
+    api<{ rotated: boolean; shift?: number; days: { id: number; phase: number; dayOfWeek: number; nameEn: string; nameHe: string; isRestDay: boolean; isCardioDay: boolean }[] }>(
+      "/api/programs/rotate",
+      { method: "POST", body: { programDayId } },
+    ),
+};
+
+export type AdvisorAction =
+  | { type: "swap_exercise"; fromSlug: string; toSlug: string; note?: string }
+  | { type: "drop_sets"; slug: string; sets: number; note?: string }
+  | { type: "reduce_weight"; slug: string; factor: number; note?: string }
+  | { type: "add_exercise"; slug: string; targetSets?: number; targetRepsMin?: number; targetRepsMax?: number; note?: string }
+  | { type: "skip_today"; note?: string }
+  | { type: "no_action"; note?: string };
+
+export const advisor = {
+  ask: (text: string) =>
+    api<{ rationale: string; actions: AdvisorAction[] }>("/api/advisor", { method: "POST", body: { text } }),
 };
 
 export const stats = {

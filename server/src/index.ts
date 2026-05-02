@@ -11,6 +11,7 @@ import { exercisesRouter } from "./routes/exercises.js";
 import { bodyRouter } from "./routes/body.js";
 import { programsRouter } from "./routes/programs.js";
 import { statsRouter } from "./routes/stats.js";
+import { advisorRouter } from "./routes/advisor.js";
 import { bootstrapSchema } from "./db/bootstrap.js";
 import { runSeed } from "./db/seed.js";
 import { pool } from "./db/client.js";
@@ -39,13 +40,34 @@ app.use("/api/exercises", exercisesRouter);
 app.use("/api/body", bodyRouter);
 app.use("/api/programs", programsRouter);
 app.use("/api/stats", statsRouter);
+app.use("/api/advisor", advisorRouter);
 
 app.use("/api", (_req, res) => res.status(404).json({ error: "not_found" }));
 
 const clientDist = path.resolve(__dirname, "..", "..", "client", "dist");
 if (fs.existsSync(clientDist)) {
-  app.use(express.static(clientDist, { index: false, maxAge: "1h" }));
+  // HTML, the service worker, and its registration shim must NEVER be cached —
+  // otherwise a new build is invisible to anyone who already loaded the page.
+  // Hashed assets (/assets/*) get a long cache because the filename changes per build.
+  app.use(
+    express.static(clientDist, {
+      index: false,
+      setHeaders: (res, filePath) => {
+        const base = path.basename(filePath);
+        if (base === "index.html" || base === "sw.js" || base === "registerSW.js" || base === "manifest.webmanifest") {
+          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+          return;
+        }
+        if (filePath.includes(`${path.sep}assets${path.sep}`)) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+          return;
+        }
+        res.setHeader("Cache-Control", "public, max-age=3600");
+      },
+    }),
+  );
   app.get("*", (_req, res) => {
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     res.sendFile(path.join(clientDist, "index.html"));
   });
 } else {

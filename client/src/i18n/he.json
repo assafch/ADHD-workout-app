@@ -69,11 +69,46 @@
     "no_exercises": "אין תרגילים היום",
     "suggest_starting": "התחלה",
     "suggest_increase_weight": "העלאת משקל",
-    "suggest_increase_reps": "+1 חזרה"
+    "suggest_increase_reps": "+1 חזרה",
+    "add_set": "+ סט נוסף",
+    "add_set_short": "סט נוסף",
+    "add_exercise": "+ תרגיל",
+    "add_exercise_short": "תרגיל",
+    "add_exercise_title": "הוסף תרגיל",
+    "no_suggestions": "אין כרגע הצעות.",
+    "state_lift": "בצע",
+    "state_rest": "נשם",
+    "state_move": "המשך",
+    "set_progress": "{{current}}/{{total}} · תרגיל {{exCurrent}}/{{exTotal}}",
+    "next_label": "סט הבא: {{weight}} × {{reps}}",
+    "kg_unit": "ק\"ג",
+    "skip": "דלג",
+    "next": "הבא",
+    "set_done_short": "סיימתי סט",
+    "breathe": "נשום",
+    "breath_cue": "שאיפה … נשיפה"
+  },
+  "coach": {
+    "tip": "טיפ אימון",
+    "tip_reps_close": "התרכז בתנועה איטית בדרך למטה. עוד חזרה אחת נמצאת שם.",
+    "tip_weight_close": "השיא שלך נשבר ברבע ק\"ג. הקפד על נשימה לפני הסט.",
+    "tip_form_general": "שמור על מרפק ב-45°. אם לא — דלג והוסף סט.",
+    "tip_pr_next_session": "מקצועי. בפעם הבאה — נסה {{weight}} ק\"ג × {{reps}}. תן לגוף יום נוסף לפני המסלול הבא."
   },
   "pr": {
     "title": "שיא חדש!",
-    "subtitle": "1RM חדש: {{weight}} ק\"ג"
+    "subtitle": "1RM חדש: {{weight}} ק\"ג",
+    "chase": "רודף שיא",
+    "record": "השיא שלך",
+    "today": "היום",
+    "past_pr": "השיא הקודם",
+    "days_ago": "לפני {{days}} ימים",
+    "one_more_rep_breaks": "חזרה אחת ושוברים",
+    "one_rm": "1RM",
+    "crush_it": "תכניס אותו",
+    "break_pr": "שובר שיא",
+    "delta_vs_past": "+{{delta}}{{unit}} מהשיא הקודם",
+    "continue": "המשך אימון"
   },
   "bad_day": {
     "title": "מצב יום קשה",
@@ -112,6 +147,20 @@
     "phase_2": "שבוע 3+ (תוכנית מלאה)",
     "advance_phase": "התקדם לשלב הבא",
     "logout": "התנתק"
+  },
+  "adjust": {
+    "title": "התאמת אימון",
+    "open": "התאם",
+    "rotate_help": "בחר איזה יום לעשות היום. שאר השבוע יוזז בהתאם.",
+    "do_today": "עשה היום",
+    "extra_workout": "אימון נוסף (בלי הזזה)",
+    "extra_help": "התאמן יום נוסף בלי לשנות את התוכנית השבועית."
+  },
+  "advisor": {
+    "title": "שאל את היועץ",
+    "help": "ספר לי מה לא בסדר — כתפיים כואבות, אנרגיה נמוכה, אין משקלים כבדים — ואציע התאמות.",
+    "placeholder": "לדוגמה: הכתפיים כואבות, אפשר לדלג על לחיצות היום?",
+    "ask": "קבל הצעות"
   },
   "offline": {
     "indicator": "במצב לא מקוון • {{count}} ממתינים לסנכרון",

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { db } from "../db/client.js";
-import { exercises, programDays, programExercises, programs, sessions, setLogs, users } from "../db/schema.js";
+import { exercises, programDays, programExercises, programs, sessionExercises, sessions, setLogs, users } from "../db/schema.js";
 import { requireAuth, type AuthedRequest } from "../auth/middleware.js";
 import { suggestNextSession } from "../lib/progression.js";
 import { computeStreak, jerusalemDateString, jerusalemDayOfWeek, weekProgress } from "../lib/streak.js";
@@ -55,6 +55,10 @@ todayRouter.get("/", requireAuth, async (req: AuthedRequest, res) => {
     .orderBy(desc(sessions.startedAt))
     .limit(1))[0] ?? null;
 
+  const sessionExRows = activeSession
+    ? await db.select().from(sessionExercises).where(eq(sessionExercises.sessionId, activeSession.id))
+    : [];
+
   const todayExercises = await Promise.all(
     pxRows
       .sort((a, b) => a.orderIndex - b.orderIndex)
@@ -103,6 +107,7 @@ todayRouter.get("/", requireAuth, async (req: AuthedRequest, res) => {
 
         return {
           programExerciseId: px.id,
+          sessionExerciseId: null as number | null,
           exercise: {
             id: ex.id,
             slug: ex.slug,
@@ -122,11 +127,83 @@ todayRouter.get("/", requireAuth, async (req: AuthedRequest, res) => {
       }),
   );
 
+  const sessionAddedExercises = await Promise.all(
+    sessionExRows
+      .sort((a, b) => a.orderIndex - b.orderIndex)
+      .map(async (se) => {
+        const ex = exMap.get(se.exerciseId)!;
+        if (!ex) return null;
+
+        const lastSetRows = await db
+          .select({
+            sessionId: setLogs.sessionId,
+            startedAt: sessions.startedAt,
+            weightKg: setLogs.weightKg,
+            reps: setLogs.reps,
+            oneRmKg: setLogs.oneRmKg,
+          })
+          .from(setLogs)
+          .innerJoin(sessions, eq(sessions.id, setLogs.sessionId))
+          .where(and(eq(setLogs.exerciseId, ex.id), eq(sessions.userId, userId)))
+          .orderBy(desc(sessions.startedAt), desc(setLogs.setNumber));
+
+        let lastSession: { date: string; sets: { weightKg: number; reps: number; oneRmKg: number | null }[] } | null = null;
+        if (lastSetRows.length > 0) {
+          const lastSessionId = lastSetRows[0].sessionId;
+          const lastSets = lastSetRows.filter((r) => r.sessionId === lastSessionId);
+          lastSession = {
+            date: jerusalemDateString(lastSets[0].startedAt),
+            sets: lastSets.map((s) => ({ weightKg: s.weightKg, reps: s.reps, oneRmKg: s.oneRmKg })),
+          };
+        }
+
+        const bestRow = (await db
+          .select({ best: sql<number>`max(${setLogs.oneRmKg})` })
+          .from(setLogs)
+          .innerJoin(sessions, eq(sessions.id, setLogs.sessionId))
+          .where(and(eq(setLogs.exerciseId, ex.id), eq(sessions.userId, userId))))[0];
+
+        const suggestion = suggestNextSession({
+          lastSession: lastSession ? { sets: lastSession.sets } : null,
+          programExercise: {
+            targetSets: se.targetSets,
+            targetRepsMin: se.targetRepsMin,
+            targetRepsMax: se.targetRepsMax,
+            startWeightKg: se.startWeightKg,
+          },
+          rack: userRow.rack,
+        });
+
+        return {
+          programExerciseId: null as number | null,
+          sessionExerciseId: se.id as number | null,
+          exercise: {
+            id: ex.id,
+            slug: ex.slug,
+            nameEn: ex.nameEn,
+            nameHe: ex.nameHe,
+            primaryMuscles: ex.primaryMuscles,
+            isUnilateral: ex.isUnilateral,
+          },
+          targetSets: se.targetSets,
+          targetRepsMin: se.targetRepsMin,
+          targetRepsMax: se.targetRepsMax,
+          restSeconds: se.restSeconds,
+          lastSession,
+          suggestion,
+          bestEverOneRm: bestRow?.best ?? null,
+        };
+      }),
+  );
+
+  const mergedExercises = [...todayExercises, ...sessionAddedExercises.filter((x): x is NonNullable<typeof x> => x !== null)];
+
   const allUserSessions = await db.select().from(sessions).where(eq(sessions.userId, userId));
-  const totalSessions = allUserSessions.filter((s) => s.status === "completed").length;
+  const scheduledSessions = allUserSessions.filter((s) => !s.isExtra);
+  const totalSessions = scheduledSessions.filter((s) => s.status === "completed").length;
   const phaseDayDefs = phaseDays.map((d) => ({ dayOfWeek: d.dayOfWeek, isRestDay: d.isRestDay, isCardioDay: d.isCardioDay }));
-  const { currentStreakDays } = computeStreak(allUserSessions, phaseDayDefs, today);
-  const { weekDaysDone, weekDaysPlanned } = weekProgress(allUserSessions, phaseDayDefs, today);
+  const { currentStreakDays } = computeStreak(scheduledSessions, phaseDayDefs, today);
+  const { weekDaysDone, weekDaysPlanned } = weekProgress(scheduledSessions, phaseDayDefs, today);
 
   return res.json({
     date: dateStr,
@@ -134,7 +211,7 @@ todayRouter.get("/", requireAuth, async (req: AuthedRequest, res) => {
     isRestDay: today_pd?.isRestDay ?? false,
     isCardioDay: today_pd?.isCardioDay ?? false,
     programDay: today_pd ? { id: today_pd.id, nameEn: today_pd.nameEn, nameHe: today_pd.nameHe } : null,
-    exercises: todayExercises,
+    exercises: mergedExercises,
     activeSession: activeSession ? { id: activeSession.id, startedAt: activeSession.startedAt } : null,
     streak: {
       weekDaysDone,
@@ -157,10 +234,11 @@ async function maybeAdvancePhase(programId: number, userId: number) {
   if (ageDays < 14) return;
 
   const completedSessions = await db
-    .select({ id: sessions.id })
+    .select({ id: sessions.id, isExtra: sessions.isExtra })
     .from(sessions)
     .where(and(eq(sessions.userId, userId), eq(sessions.status, "completed")));
-  if (completedSessions.length < 6) return;
+  const scheduledCompleted = completedSessions.filter((s) => !s.isExtra);
+  if (scheduledCompleted.length < 6) return;
 
   await db.update(programs).set({ phase: 2 }).where(eq(programs.id, programId));
   console.log(`[phase] Advanced program ${programId} to phase 2`);

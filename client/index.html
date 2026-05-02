@@ -5,12 +5,47 @@
     <link rel="icon" type="image/png" href="/icon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-    <meta name="theme-color" content="#10b981" />
+    <meta name="theme-color" content="#1c1b1a" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@600;700&display=swap"
+    />
+    <script>
+      // One-time eviction of stale service worker + caches when the build
+      // version changes. Without this, anyone who already loaded an older
+      // build keeps being served the precached old bundle.
+      (function () {
+        var BUILD = "redesign-v1-2026-05-02";
+        try {
+          if (localStorage.getItem("__appBuild") === BUILD) return;
+          if (!("serviceWorker" in navigator)) {
+            localStorage.setItem("__appBuild", BUILD);
+            return;
+          }
+          navigator.serviceWorker.getRegistrations().then(function (regs) {
+            var work = Promise.all(regs.map(function (r) { return r.unregister(); }));
+            if (window.caches && caches.keys) {
+              work = work.then(function () {
+                return caches.keys().then(function (keys) {
+                  return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+                });
+              });
+            }
+            work.then(function () {
+              localStorage.setItem("__appBuild", BUILD);
+              if (regs.length > 0) location.reload();
+            });
+          });
+        } catch (e) { /* swallow */ }
+      })();
+    </script>
     <title>ADHD Strength</title>
   </head>
-  <body class="bg-stone-950 text-stone-100">
+  <body class="bg-bg text-text">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
