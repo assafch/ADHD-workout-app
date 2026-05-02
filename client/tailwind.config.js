@@ -26,9 +26,9 @@ export default {
         cursive: ['"Caveat"', "cursive"],
       },
       fontSize: {
-        eyebrow: ["11px", { lineHeight: "1.2", letterSpacing: "0.16em" }],
-        meta: ["11px", { lineHeight: "1.2" }],
-        body: ["14px", { lineHeight: "1.45" }],
+        eyebrow: ["12.1px", { lineHeight: "1.2", letterSpacing: "0.16em" }],
+        meta: ["12.1px", { lineHeight: "1.2" }],
+        body: ["15.4px", { lineHeight: "1.45" }],
         cta: ["21px", { lineHeight: "1" }],
         section: ["32px", { lineHeight: "1.05" }],
         "section-lg": ["38px", { lineHeight: "1.05" }],
