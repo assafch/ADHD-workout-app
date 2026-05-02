@@ -46,7 +46,7 @@ export function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t("auth.email")}
-          className="ltr-numbers min-h-tap rounded-xl bg-stone-900 px-4 py-3 text-lg outline-none focus:ring-2 focus:ring-emerald-500"
+          className="ltr-numbers min-h-tap rounded-xl bg-surface px-4 py-3 text-lg outline-none focus:ring-2 focus:ring-accent"
           autoComplete="email"
           required
           dir="ltr"
@@ -56,7 +56,7 @@ export function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder={t("auth.password")}
-          className="min-h-tap rounded-xl bg-stone-900 px-4 py-3 text-lg outline-none focus:ring-2 focus:ring-emerald-500"
+          className="min-h-tap rounded-xl bg-surface px-4 py-3 text-lg outline-none focus:ring-2 focus:ring-accent"
           autoComplete="current-password"
           required
           dir="ltr"
@@ -65,7 +65,7 @@ export function Login() {
         <button
           type="submit"
           disabled={submitting}
-          className="min-h-tap rounded-xl bg-emerald-500 py-3 text-lg font-semibold text-stone-950 disabled:opacity-50"
+          className="min-h-tap rounded-xl bg-accent py-3 text-lg font-semibold text-ink disabled:opacity-50"
         >
           {t("auth.login")}
         </button>

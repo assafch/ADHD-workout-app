@@ -45,7 +45,14 @@
     "saved": "נשמר ✓",
     "streak_this_week": "השבוע: {{done}} מתוך {{planned}}",
     "current_streak_days": "רצף: {{count}}",
-    "no_program": "אין תוכנית פעילה"
+    "no_program": "אין תוכנית פעילה",
+    "today": "היום",
+    "lifts_word": "תרגילים",
+    "day_streak_word": "ימים ברצף",
+    "preview": "תרגילים היום",
+    "rest_subtitle": "אבל אם בא לך…",
+    "bad_day_eyebrow": "יום קשה?",
+    "bad_day_sub": "סט אחד נחשב"
   },
   "workout": {
     "set_of": "סט {{current}} מתוך {{total}}",

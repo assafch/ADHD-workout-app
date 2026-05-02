@@ -43,12 +43,12 @@ export function SetCard({
     <div className="flex w-full flex-col gap-6">
       <div className="text-center">
         <h1 className="text-2xl font-bold">{isHe ? exerciseNameHe : exerciseNameEn}</h1>
-        <p className="text-sm text-stone-400">{isHe ? exerciseNameEn : exerciseNameHe}</p>
-        <p className="mt-2 text-stone-300 ltr-numbers">{t("workout.set_of", { current: setNumber, total: totalSets })}</p>
-        <p className="text-xs uppercase tracking-wide text-stone-500 ltr-numbers">target reps: {repRange}</p>
+        <p className="text-sm text-text-mute">{isHe ? exerciseNameEn : exerciseNameHe}</p>
+        <p className="mt-2 text-text-2 ltr-numbers">{t("workout.set_of", { current: setNumber, total: totalSets })}</p>
+        <p className="text-xs uppercase tracking-wide text-text-dim ltr-numbers">target reps: {repRange}</p>
       </div>
 
-      <div className="space-y-1 text-center text-xs text-stone-500">
+      <div className="space-y-1 text-center text-xs text-text-dim">
         {lastSessionLabel && <div>{t("workout.last_time")}: <span className="ltr-numbers">{lastSessionLabel}</span></div>}
         {bestLabel && <div>{t("workout.best")}: <span className="ltr-numbers">{bestLabel}</span></div>}
       </div>
@@ -61,7 +61,7 @@ export function SetCard({
       <button
         type="button"
         onClick={() => onSetDone(weight, reps)}
-        className="pulse-emerald min-h-[72px] w-full rounded-3xl bg-emerald-500 text-2xl font-bold text-stone-950 active:bg-emerald-400"
+        className="pulse-coral min-h-[72px] w-full rounded-3xl bg-accent text-2xl font-bold text-ink active:bg-accent-2"
       >
         {t("workout.set_done")}
       </button>

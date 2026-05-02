@@ -13,7 +13,7 @@ import { AdjustWorkout } from "./pages/AdjustWorkout";
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { user, isLoading } = useAuth();
   if (isLoading) {
-    return <div className="flex min-h-screen items-center justify-center text-stone-400">…</div>;
+    return <div className="flex min-h-screen items-center justify-center text-text-mute">…</div>;
   }
   if (!user) return <Navigate to="/login" replace />;
   return children;

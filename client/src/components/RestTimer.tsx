@@ -45,7 +45,7 @@ export function RestTimer({ seconds, onDone, onSkip }: Props) {
   const dash = circumference * pct;
 
   return (
-    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-stone-950/95 backdrop-blur">
+    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-bg/95 backdrop-blur">
       <div className="relative flex h-64 w-64 items-center justify-center">
         <svg className="absolute inset-0 -rotate-90" viewBox="0 0 200 200">
           <circle cx="100" cy="100" r="90" stroke="#1c1917" strokeWidth="10" fill="none" />
@@ -63,21 +63,21 @@ export function RestTimer({ seconds, onDone, onSkip }: Props) {
         </svg>
         <div className="text-center">
           <div className="ltr-numbers text-huge font-bold tabular-nums">{remaining}</div>
-          <div className="text-sm uppercase tracking-wide text-stone-400">{t("workout.rest_remaining")}</div>
+          <div className="text-sm uppercase tracking-wide text-text-mute">{t("workout.rest_remaining")}</div>
         </div>
       </div>
       <div className="mt-8 flex gap-4">
         <button
           type="button"
           onClick={() => adjust(-15)}
-          className="min-h-tap rounded-full bg-stone-800 px-6 py-3 text-lg active:bg-stone-700"
+          className="min-h-tap rounded-full bg-surface-2 px-6 py-3 text-lg active:bg-line"
         >
           −15s
         </button>
         <button
           type="button"
           onClick={() => adjust(15)}
-          className="min-h-tap rounded-full bg-stone-800 px-6 py-3 text-lg active:bg-stone-700"
+          className="min-h-tap rounded-full bg-surface-2 px-6 py-3 text-lg active:bg-line"
         >
           +15s
         </button>
@@ -85,7 +85,7 @@ export function RestTimer({ seconds, onDone, onSkip }: Props) {
       <button
         type="button"
         onClick={onSkip}
-        className="mt-6 min-h-tap rounded-full bg-emerald-500 px-8 py-4 text-lg font-semibold text-stone-950 active:bg-emerald-400"
+        className="mt-6 min-h-tap rounded-full bg-accent px-8 py-4 text-lg font-semibold text-ink active:bg-accent"
       >
         {t("workout.skip_rest")}
       </button>

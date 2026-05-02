@@ -96,7 +96,7 @@ export function AdjustWorkout() {
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-900 text-stone-300 active:bg-stone-800"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-text-2 active:bg-surface-2"
           aria-label={t("common.back")}
         >
           ←
@@ -104,10 +104,10 @@ export function AdjustWorkout() {
         <h1 className="text-2xl font-bold">{t("adjust.title")}</h1>
       </header>
 
-      <p className="mb-4 text-sm text-stone-400">{t("adjust.rotate_help")}</p>
+      <p className="mb-4 text-sm text-text-mute">{t("adjust.rotate_help")}</p>
 
       {loading ? (
-        <div className="text-stone-400">{t("app.loading")}</div>
+        <div className="text-text-mute">{t("app.loading")}</div>
       ) : (
         <ul className="flex flex-col gap-2">
           {ordered.map((d) => {
@@ -115,17 +115,17 @@ export function AdjustWorkout() {
             const dow = formatDayName(d.dayOfWeek, i18n.language);
             const isWorkoutDay = !d.isRestDay && !d.isCardioDay;
             return (
-              <li key={d.id} className="rounded-2xl bg-stone-900 p-3">
+              <li key={d.id} className="rounded-2xl bg-surface p-3">
                 <div className="mb-2 px-1">
                   <div className="font-semibold">{name}</div>
-                  <div className="text-xs text-stone-500">{dow}</div>
+                  <div className="text-xs text-text-dim">{dow}</div>
                 </div>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     disabled={pending != null}
                     onClick={() => onRotate(d)}
-                    className="min-h-tap flex-1 rounded-xl bg-emerald-500 px-3 py-2 text-sm font-semibold text-stone-950 active:bg-emerald-400 disabled:opacity-50"
+                    className="min-h-tap flex-1 rounded-xl bg-accent px-3 py-2 text-sm font-semibold text-ink active:bg-accent disabled:opacity-50"
                   >
                     {pending === d.id ? "…" : t("adjust.do_today")}
                   </button>
@@ -134,7 +134,7 @@ export function AdjustWorkout() {
                       type="button"
                       disabled={pending != null}
                       onClick={() => onExtra(d)}
-                      className="min-h-tap flex-1 rounded-xl bg-stone-800 px-3 py-2 text-sm font-semibold text-stone-200 active:bg-stone-700 disabled:opacity-50"
+                      className="min-h-tap flex-1 rounded-xl bg-surface-2 px-3 py-2 text-sm font-semibold text-text active:bg-line disabled:opacity-50"
                     >
                       {t("adjust.extra_workout")}
                     </button>
@@ -176,34 +176,34 @@ function AdvisorPanel() {
   };
 
   return (
-    <div className="mt-8 rounded-2xl bg-stone-900 p-4">
+    <div className="mt-8 rounded-2xl bg-surface p-4">
       <h2 className="text-lg font-bold">{t("advisor.title")}</h2>
-      <p className="mt-1 text-xs text-stone-500">{t("advisor.help")}</p>
+      <p className="mt-1 text-xs text-text-dim">{t("advisor.help")}</p>
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
         rows={3}
         placeholder={t("advisor.placeholder")}
-        className="mt-3 w-full rounded-xl bg-stone-800 px-3 py-2 text-base outline-none focus:ring-2 focus:ring-emerald-500"
+        className="mt-3 w-full rounded-xl bg-surface-2 px-3 py-2 text-base outline-none focus:ring-2 focus:ring-accent"
       />
       <button
         type="button"
         disabled={loading || !text.trim()}
         onClick={onAsk}
-        className="mt-2 min-h-tap w-full rounded-xl bg-emerald-500 py-2 font-semibold text-stone-950 active:bg-emerald-400 disabled:opacity-50"
+        className="mt-2 min-h-tap w-full rounded-xl bg-accent py-2 font-semibold text-ink active:bg-accent disabled:opacity-50"
       >
         {loading ? t("app.loading") : t("advisor.ask")}
       </button>
       {error && <div className="mt-3 rounded-lg bg-red-500/15 px-3 py-2 text-sm text-red-300">{error}</div>}
       {result && (
         <div className="mt-4 flex flex-col gap-2">
-          <p className="text-sm text-stone-200">{result.rationale}</p>
-          <ul className="flex flex-col gap-1 text-xs text-stone-400">
+          <p className="text-sm text-text">{result.rationale}</p>
+          <ul className="flex flex-col gap-1 text-xs text-text-mute">
             {result.actions.map((a, i) => (
-              <li key={i} className="rounded-lg bg-stone-800 px-3 py-2">
-                <span className="font-mono text-emerald-300">{a.type}</span>
+              <li key={i} className="rounded-lg bg-surface-2 px-3 py-2">
+                <span className="font-mono text-accent">{a.type}</span>
                 <span className="ml-2">{describe(a)}</span>
-                {"note" in a && a.note && <div className="mt-1 text-stone-300">{a.note}</div>}
+                {"note" in a && a.note && <div className="mt-1 text-text-2">{a.note}</div>}
               </li>
             ))}
           </ul>

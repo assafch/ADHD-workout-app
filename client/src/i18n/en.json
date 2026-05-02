@@ -45,7 +45,14 @@
     "saved": "Saved ✓",
     "streak_this_week": "This week: {{done}} of {{planned}}",
     "current_streak_days": "Streak: {{count}}",
-    "no_program": "No active program"
+    "no_program": "No active program",
+    "today": "Today",
+    "lifts_word": "lifts",
+    "day_streak_word": "day streak",
+    "preview": "Today's lifts",
+    "rest_subtitle": "but if you want…",
+    "bad_day_eyebrow": "Rough day?",
+    "bad_day_sub": "One set counts"
   },
   "workout": {
     "set_of": "Set {{current}} of {{total}}",

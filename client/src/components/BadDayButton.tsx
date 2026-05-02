@@ -10,7 +10,7 @@ export function BadDayButton({ onClick }: Props) {
     <button
       type="button"
       onClick={onClick}
-      className="text-sm text-stone-400 underline-offset-4 hover:text-stone-200 hover:underline"
+      className="text-sm text-text-mute underline-offset-4 hover:text-text hover:underline"
     >
       {t("home.bad_day_button")}
     </button>

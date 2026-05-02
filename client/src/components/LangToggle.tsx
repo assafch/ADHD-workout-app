@@ -20,18 +20,18 @@ export function LangToggle() {
 
   const current = i18n.language.startsWith("he") ? "he" : "en";
   return (
-    <div className="inline-flex rounded-full bg-stone-800 p-1 text-sm">
+    <div className="inline-flex rounded-full bg-surface-2 p-1 text-sm">
       <button
         type="button"
         onClick={() => switchTo("he")}
-        className={`min-h-tap rounded-full px-4 py-2 ${current === "he" ? "bg-emerald-500 text-stone-950" : "text-stone-300"}`}
+        className={`min-h-tap rounded-full px-4 py-2 ${current === "he" ? "bg-accent text-ink" : "text-text-2"}`}
       >
         עברית
       </button>
       <button
         type="button"
         onClick={() => switchTo("en")}
-        className={`min-h-tap rounded-full px-4 py-2 ${current === "en" ? "bg-emerald-500 text-stone-950" : "text-stone-300"}`}
+        className={`min-h-tap rounded-full px-4 py-2 ${current === "en" ? "bg-accent text-ink" : "text-text-2"}`}
       >
         English
       </button>

@@ -9,11 +9,11 @@ interface Props {
 export function StreakBadge({ weekDaysDone, weekDaysPlanned, currentStreakDays }: Props) {
   const { t } = useTranslation();
   return (
-    <div className="flex items-center gap-3 rounded-2xl bg-stone-900 px-4 py-3">
+    <div className="flex items-center gap-3 rounded-2xl bg-surface px-4 py-3">
       <span className="text-2xl" aria-hidden>🔥</span>
       <div className="flex flex-col">
-        <span className="text-sm text-stone-300">{t("home.streak_this_week", { done: weekDaysDone, planned: weekDaysPlanned })}</span>
-        <span className="text-xs text-stone-500 ltr-numbers">{t("home.current_streak_days", { count: currentStreakDays })}</span>
+        <span className="text-sm text-text-2">{t("home.streak_this_week", { done: weekDaysDone, planned: weekDaysPlanned })}</span>
+        <span className="text-xs text-text-dim ltr-numbers">{t("home.current_streak_days", { count: currentStreakDays })}</span>
       </div>
     </div>
   );
